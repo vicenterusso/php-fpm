@@ -27,6 +27,7 @@ RUN apt-get update && apt-get upgrade -y \
     wget \
     unzip \
     zlib1g-dev \
+    locales \
     && docker-php-ext-configure gd \
     --with-freetype-dir=/usr/include/ \
     --with-jpeg-dir=/usr/include/ \
@@ -65,3 +66,7 @@ RUN apt-get update && apt-get upgrade -y \
     && apt-get autoremove --purge -y && apt-get autoclean -y && apt-get clean -y \
     && rm -rf /var/lib/apt/lists/* \
     && rm -rf /tmp/* /var/tmp/*
+
+RUN sed -i '/^#.* pt_BR /s/^#//' /etc/locale.gen
+
+RUN locale-gen
