@@ -1,21 +1,8 @@
-# PHP-FPM Docker Image
+# PHP-FPM 7.3.6 Docker Image
 
-Docker container to install and run [PHP-FPM](https://php-fpm.org/).
+Docker container to install and run [PHP-FPM](https://php-fpm.org/) with pt_BR language installed and enabled.
 
-[![Build Status](https://travis-ci.org/nanoninja/php-fpm.svg?branch=master)](https://travis-ci.org/nanoninja/php-fpm) [![Automated Build](https://img.shields.io/docker/automated/jrottenberg/ffmpeg.svg)](https://hub.docker.com/r/nanoninja/php-fpm/builds/)
-
-## Supported branches and respective Dockerfile links
-
-- master [Dockerfile](https://github.com/nanoninja/php-fpm/blob/master/Dockerfile)
-- 7.3.6 [Dockerfile](https://github.com/nanoninja/php-fpm/blob/7.3.6/Dockerfile)
-- 7.3.3 [Dockerfile](https://github.com/nanoninja/php-fpm/blob/7.3.3/Dockerfile)
-- 7.3.2 [Dockerfile](https://github.com/nanoninja/php-fpm/blob/7.3.2/Dockerfile)
-- 7.2.15 [Dockerfile](https://github.com/nanoninja/php-fpm/blob/7.2.15/Dockerfile)
-- 7.2.13 [Dockerfile](https://github.com/nanoninja/php-fpm/blob/7.2.13/Dockerfile)
-- 7.2.2 [Dockerfile](https://github.com/nanoninja/php-fpm/blob/7.2.2/Dockerfile)
-- 7.1.14 [Dockerfile](https://github.com/nanoninja/php-fpm/blob/7.1.14/Dockerfile)
-- 5.6.40 [Dockerfile](https://github.com/nanoninja/php-fpm/blob/5.6.40/Dockerfile)
-- 5.6.32 [Dockerfile](https://github.com/nanoninja/php-fpm/blob/5.6.32/Dockerfile)
+[![Build Status](https://travis-ci.org/vicenterusso/php-fpm.svg?branch=master)](https://travis-ci.org/vicenterusso/php-fpm)
 
 ## What is PHP-FPM
 
@@ -24,7 +11,7 @@ PHP-FPM (FastCGI Process Manager) is an alternative FastCGI implementation for P
 ## Getting image
 
 ```sh
-sudo docker image pull nanoninja/php-fpm
+sudo docker image pull vicenterusso/php-fpm
 ```
 
 ## Running your PHP script
@@ -32,13 +19,13 @@ sudo docker image pull nanoninja/php-fpm
 Run the PHP-FPM image, mounting a directory from your host.
 
 ```sh
-sudo docker container run --rm -v $(pwd):/var/www/html nanoninja/php-fpm php index.php
+sudo docker container run --rm -v $(pwd):/var/www/html vicenterusso/php-fpm php index.php
 ```
 
 ## Running as server
 
 ```sh
-sudo docker container run --rm --name phpfpm -v $(pwd):/var/www/html -p 3000:3000 nanoninja/php-fpm php -S="0.0.0.0:3000" -t="/var/www/html"
+sudo docker container run --rm --name phpfpm -v $(pwd):/var/www/html -p 3000:3000 vicenterusso/php-fpm php -S="0.0.0.0:3000" -t="/var/www/html"
 ```
 
 or using [Docker Compose](https://docs.docker.com/compose/) :
@@ -48,7 +35,7 @@ version: '3'
 services:
   phpfpm:
     container_name: phpfpm
-    image: nanoninja/php-fpm
+    image: vicenterusso/php-fpm
     ports:
       - 3000:3000
     volumes:
@@ -65,7 +52,7 @@ sudo docker container logs phpfpm
 ## Installed extensions
 
 ```bash
-sudo docker container run --rm nanoninja/php-fpm php -m
+sudo docker container run --rm vicenterusso/php-fpm php -m
 ```
 
 ### PHP Modules
