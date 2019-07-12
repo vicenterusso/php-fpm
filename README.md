@@ -1,4 +1,4 @@
-# PHP-FPM 7.3.6 Docker Image
+# PHP-FPM 7.3.7 Docker Image
 
 Docker container to install and run [PHP-FPM](https://php-fpm.org/) with pt_BR language installed and enabled.
 
