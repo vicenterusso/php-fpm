@@ -28,6 +28,7 @@ RUN apt-get update && apt-get upgrade -y \
     unzip \
     zlib1g-dev \
     locales \
+    cron \
     && docker-php-ext-configure gd \
     --with-freetype-dir=/usr/include/ \
     --with-jpeg-dir=/usr/include/ \
@@ -54,7 +55,6 @@ RUN apt-get update && apt-get upgrade -y \
     sockets \
     xmlrpc \
     xsl \
-    cron \
     && docker-php-ext-configure zip --with-libzip \
     && docker-php-ext-install zip \
     && pecl install xdebug && docker-php-ext-enable xdebug \
