@@ -54,7 +54,7 @@ RUN apt-get update && apt-get upgrade -y \
     soap \
     sockets \
     xmlrpc \
-    xsl \
+    xsl \    
     && docker-php-ext-configure zip --with-libzip \
     && docker-php-ext-install zip \
     && pecl install xdebug && docker-php-ext-enable xdebug \
