@@ -61,6 +61,7 @@ sudo docker container run --rm vicenterusso/php-fpm php -m
 - bz2
 - calendar
 - Core
+- cron
 - ctype
 - curl
 - date
