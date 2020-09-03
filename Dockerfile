@@ -1,4 +1,4 @@
-FROM php:7.3-fpm-stretch
+FROM php:7.4.9-fpm-buster
 
 LABEL maintainer="Vincent Letourneau <vincent@nanoninja.com>"
 
