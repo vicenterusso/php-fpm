@@ -1,6 +1,6 @@
 sudo: required
 services: docker
 script:
-  - docker build -t vicenterusso/php-fpm .
+  - docker build -t vicenterusso/php-fpm:7.4 .
 after_script:
   - docker images

@@ -1,8 +1,8 @@
-# PHP-FPM 7.3.7 Docker Image
+# PHP-FPM 7.4.9 Docker Image
 
 Docker container to install and run [PHP-FPM](https://php-fpm.org/) with pt_BR language installed and enabled.
 
-[![Build Status](https://travis-ci.org/vicenterusso/php-fpm.svg?branch=master)](https://travis-ci.org/vicenterusso/php-fpm)
+[![Build Status](https://travis-ci.org/vicenterusso/php-fpm.svg?branch=7.4)](https://travis-ci.org/vicenterusso/php-fpm)
 
 ## What is PHP-FPM
 
@@ -19,13 +19,13 @@ sudo docker image pull vicenterusso/php-fpm
 Run the PHP-FPM image, mounting a directory from your host.
 
 ```sh
-sudo docker container run --rm -v $(pwd):/var/www/html vicenterusso/php-fpm php index.php
+sudo docker container run --rm -v $(pwd):/var/www/html vicenterusso/php-fpm:7.4 php index.php
 ```
 
 ## Running as server
 
 ```sh
-sudo docker container run --rm --name phpfpm -v $(pwd):/var/www/html -p 3000:3000 vicenterusso/php-fpm php -S="0.0.0.0:3000" -t="/var/www/html"
+sudo docker container run --rm --name phpfpm -v $(pwd):/var/www/html -p 3000:3000 vicenterusso/php-fpm:7.4 php -S="0.0.0.0:3000" -t="/var/www/html"
 ```
 
 or using [Docker Compose](https://docs.docker.com/compose/) :
@@ -35,7 +35,7 @@ version: '3'
 services:
   phpfpm:
     container_name: phpfpm
-    image: vicenterusso/php-fpm
+    image: vicenterusso/php-fpm:7.4
     ports:
       - 3000:3000
     volumes:
@@ -52,7 +52,7 @@ sudo docker container logs phpfpm
 ## Installed extensions
 
 ```bash
-sudo docker container run --rm vicenterusso/php-fpm php -m
+sudo docker container run --rm vicenterusso/php-fpm:7.4 php -m
 ```
 
 ### PHP Modules
