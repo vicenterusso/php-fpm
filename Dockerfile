@@ -1,6 +1,6 @@
-FROM php:7.4.9-fpm-buster
+FROM php:7.4.13-fpm-buster
 
-LABEL maintainer="Vincent Letourneau <vincent@nanoninja.com>"
+LABEL maintainer="Vicente Russo <vicente.russo@gmail.com>"
 
 RUN apt-get update && apt-get upgrade -y \
     && apt-get install -y \
@@ -65,6 +65,14 @@ RUN apt-get update && apt-get upgrade -y \
     && rm -rf /var/lib/apt/lists/* \
     && rm -rf /tmp/* /var/tmp/*
 
+# Add locale pt_BR
 RUN sed -i '/^#.* pt_BR /s/^#//' /etc/locale.gen
 
 RUN locale-gen
+
+# Add user for application
+RUN groupadd -g 1000 www
+RUN useradd -u 1000 -ms /bin/bash -g www www
+
+# Change current user to www
+USER www
