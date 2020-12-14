@@ -1,4 +1,4 @@
-# PHP-FPM 7.4.9 Docker Image
+# PHP-FPM 7.4.13 Docker Image
 
 Docker container to install and run [PHP-FPM](https://php-fpm.org/) with pt_BR language installed and enabled.
 
@@ -11,7 +11,7 @@ PHP-FPM (FastCGI Process Manager) is an alternative FastCGI implementation for P
 ## Getting image
 
 ```sh
-sudo docker image pull vicenterusso/php-fpm
+sudo docker image pull vicenterusso/php-fpm:7.4
 ```
 
 ## Running your PHP script
