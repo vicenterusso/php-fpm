@@ -1,4 +1,4 @@
-FROM php:7.4.13-fpm-buster
+FROM php:8.0.0-fpm-buster
 
 LABEL maintainer="Vicente Russo <vicente.russo@gmail.com>"
 
@@ -50,7 +50,6 @@ RUN apt-get update && apt-get upgrade -y \
     pgsql \
     soap \
     sockets \
-    xmlrpc \
     xsl \    
     && docker-php-ext-configure zip --with-zip \
     && docker-php-ext-install zip \
