@@ -74,7 +74,6 @@ sudo docker container run --rm vicenterusso/php-fpm:8 php -m
 - gettext
 - hash
 - iconv
-- imagick
 - imap
 - intl
 - json
@@ -109,7 +108,6 @@ sudo docker container run --rm vicenterusso/php-fpm:8 php -m
 - xdebug
 - xml
 - xmlreader
-- xmlrpc
 - xmlwriter
 - xsl
 - Zend OPcache
