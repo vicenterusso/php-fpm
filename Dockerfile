@@ -54,10 +54,9 @@ RUN apt-get update && apt-get upgrade -y \
     && docker-php-ext-configure zip --with-zip \
     && docker-php-ext-install zip \
     && pecl install xdebug && docker-php-ext-enable xdebug \
-    && pecl install memcached && docker-php-ext-enable memcached \
     && pecl install mongodb && docker-php-ext-enable mongodb \
+    && pecl install memcached && docker-php-ext-enable memcached \
     && pecl install redis && docker-php-ext-enable redis \
-    && yes '' | pecl install imagick && docker-php-ext-enable imagick \
     && docker-php-source delete \
     && apt-get remove -y g++ wget \
     && apt-get autoremove --purge -y && apt-get autoclean -y && apt-get clean -y \
