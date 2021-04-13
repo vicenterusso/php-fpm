@@ -45,7 +45,6 @@ RUN apt-get update && apt-get upgrade -y \
     gettext \
     mysqli \
     opcache \
-    pdo_mysql \
     pdo_pgsql \
     pgsql \
     soap \
@@ -53,24 +52,10 @@ RUN apt-get update && apt-get upgrade -y \
     xsl \    
     && docker-php-ext-configure zip --with-zip \
     && docker-php-ext-install zip \
-#    && pecl install xdebug && docker-php-ext-enable xdebug \
     && pecl install mongodb && docker-php-ext-enable mongodb \
-#    && pecl install memcached && docker-php-ext-enable memcached \
     && pecl install redis && docker-php-ext-enable redis \
     && docker-php-source delete \
     && apt-get remove -y g++ wget \
     && apt-get autoremove --purge -y && apt-get autoclean -y && apt-get clean -y \
     && rm -rf /var/lib/apt/lists/* \
     && rm -rf /tmp/* /var/tmp/*
-
-# Add locale pt_BR
-RUN sed -i '/^#.* pt_BR /s/^#//' /etc/locale.gen
-
-RUN locale-gen
-
-# Add user for application
-RUN groupadd -g 1000 www
-RUN useradd -u 1000 -ms /bin/bash -g www www
-
-# Change current user to www
-USER www
