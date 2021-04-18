@@ -64,7 +64,10 @@ RUN apt-get update && apt-get upgrade -y \
     && rm -rf /tmp/* /var/tmp/*
 
 # Add locale pt_BR
-RUN sed -i '/^#.* pt_BR /s/^#//' /etc/locale.gen
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y locales
+
+# Add locale pt_BR
+RUN sed -i 's/# pt_BR*/pt_BR/' /etc/locale.gen
 
 RUN locale-gen
 
