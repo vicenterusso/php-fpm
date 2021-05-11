@@ -31,12 +31,8 @@ RUN apt-get update && apt-get upgrade -y \
     cron \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install -j$(nproc) gd \
-    && docker-php-ext-configure imap --with-kerberos --with-imap-ssl \
-    && docker-php-ext-install -j$(nproc) imap \
     && docker-php-ext-configure intl \
     && docker-php-ext-install -j$(nproc) intl \
-    && docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu/ \
-    && docker-php-ext-install ldap \
     && docker-php-ext-install -j$(nproc) \
     bcmath \
     bz2 \
@@ -54,7 +50,6 @@ RUN apt-get update && apt-get upgrade -y \
     xsl \    
     && docker-php-ext-configure zip --with-zip \
     && docker-php-ext-install zip \
-    && pecl install xdebug && docker-php-ext-enable xdebug \
     && pecl install memcached && docker-php-ext-enable memcached \
     && pecl install mongodb && docker-php-ext-enable mongodb \
     && pecl install redis && docker-php-ext-enable redis \
