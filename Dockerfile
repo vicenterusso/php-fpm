@@ -1,4 +1,4 @@
-FROM php:7.4.19-fpm-buster
+FROM php:7.4.21-fpm-buster
 
 LABEL maintainer="Vicente Russo <vicente.russo@gmail.com>"
 
