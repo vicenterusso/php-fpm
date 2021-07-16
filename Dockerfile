@@ -1,4 +1,4 @@
-FROM php:8.0.0-fpm-buster
+FROM php:8.0.8-fpm-buster
 
 LABEL maintainer="Vicente Russo <vicente.russo@gmail.com>"
 
