@@ -2,7 +2,7 @@
 
 Docker container to install and run [PHP-FPM](https://php-fpm.org/) with pt_BR language installed and enabled.
 
-[![Build Status](https://travis-ci.com/vicenterusso/php-fpm.svg?branch=8)](https://travis-ci.com/vicenterusso/php-fpm)
+[![Build Status](https://travis-ci.com/vicenterusso/php-fpm.svg?branch=8)](https://travis-ci.com/vicenterusso/php-fpm) ![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/vicenterusso/php-fpm)
 
 ## What is PHP-FPM
 
