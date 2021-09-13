@@ -293,3 +293,7 @@ RUN adduser -SDu 1000 www www
 
 # Change current user to www
 USER www
+
+# Changed locale
+ENV LANG=pt_BR.UTF-8
+ENV LC_COLLATE=pt_BR
