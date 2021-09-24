@@ -24,4 +24,4 @@ jobs:
       run: docker build . --file Dockerfile --tag vicenterusso/php-fpm:7.4.23-alpine
       
     - name: Docker Push
-      run: docker push vicenterusso/php-fpm
+      run: docker push vicenterusso/php-fpm:7.4.23-alpine
