@@ -127,6 +127,10 @@ RUN set -eux \
     && docker-php-ext-install -j$(nproc) exif \
     && true \
 \
+# Install calendar
+    && docker-php-ext-install -j$(nproc) calendar \
+    && true \
+\
 # Install imagick
     && pecl install imagick \
     && docker-php-ext-enable imagick \
