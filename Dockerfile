@@ -17,6 +17,7 @@ RUN set -eux \
         freetds \
         freetype \
         gettext \
+        git \
         gmp \
         icu-libs \
         imagemagick \
