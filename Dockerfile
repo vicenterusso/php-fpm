@@ -1,14 +1,14 @@
-FROM php:7.4.23-fpm-alpine3.14
+FROM php:7.4.29-fpm-alpine3.16
 
 LABEL Maintainer="Vicente Russo <vicente.russo@gmail.com>" \
-    Description="PHP-FPM v7.4 with essential extensions on top of Alpine Linux."
+    Description="PHP-FPM v7.4.29 with essential extensions on top of Alpine Linux."
 
 # Composer - https://getcomposer.org/download/
-ARG COMPOSER_VERSION="2.1.6"
-ARG COMPOSER_SUM="72524ccebcb071968eb83284507225fdba59f223719b2b3f333d76c8a9ac6b72"
+ARG COMPOSER_VERSION="2.3.7"
+ARG COMPOSER_SUM="3f2d46787d51070f922bf991aa08324566f726f186076c2a5e4e8b01a8ea3fd0"
 
 # Swoole - https://github.com/swoole/swoole-src
-ARG SWOOLE_VERSION="4.7.1"
+ARG SWOOLE_VERSION="4.8.10"
 
 # Install dependencies
 RUN set -eux \
@@ -302,3 +302,5 @@ USER www
 # Changed locale
 ENV LANG=pt_BR.UTF-8
 ENV LC_COLLATE=pt_BR
+
+WORKDIR /var/www
