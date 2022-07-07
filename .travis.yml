@@ -1,6 +1,6 @@
 sudo: required
 services: docker
 script:
-  - docker build -t vicenterusso/php-fpm:8.1.4-puppeter .
+  - docker build -t vicenterusso/php-fpm:8.1.4-puppeteer .
 after_script:
   - docker images
