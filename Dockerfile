@@ -1,79 +1,55 @@
-FROM php:8.1.4-fpm-buster
+FROM vicenterusso/php-fpm:8.1.4
 
 LABEL maintainer="Vicente Russo <vicente.russo@gmail.com>"
 
-RUN apt-get update && apt-get upgrade -y \
-    && apt-get install -y \
-    g++ \
-    libbz2-dev \
-    libc-client-dev \
-    libcurl4-gnutls-dev \
-    libedit-dev \
-    libfreetype6-dev \
-    libicu-dev \
-    libjpeg62-turbo-dev \
-    libkrb5-dev \
-    libldap2-dev \
-    libmagickwand-dev \
-    libmcrypt-dev \
-    libmemcached-dev \
-    libpq-dev \
-    libsqlite3-dev \
-    libssl-dev \
-    libreadline-dev \
-    libxslt1-dev \
-    libzip-dev \
-    memcached \
-    wget \
-    unzip \
-    zlib1g-dev \
-    locales \
-    cron \
-    && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install -j$(nproc) gd \
-    && docker-php-ext-configure imap --with-kerberos --with-imap-ssl \
-    && docker-php-ext-install -j$(nproc) imap \
-    && docker-php-ext-configure intl \
-    && docker-php-ext-install -j$(nproc) intl \
-    && docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu/ \
-    && docker-php-ext-install ldap \
-    && docker-php-ext-install -j$(nproc) \
-    bcmath \
-    bz2 \
-    calendar \
-    exif \
-    gettext \
-    mysqli \
-    opcache \
-    pdo_mysql \
-    pdo_pgsql \
-    pgsql \
-    soap \
-    sockets \
-    xsl \    
-    && docker-php-ext-configure zip --with-zip \
-    && docker-php-ext-install zip \
-#    && pecl install xdebug && docker-php-ext-enable xdebug \
-    && pecl install mongodb && docker-php-ext-enable mongodb \
-#    && pecl install memcached && docker-php-ext-enable memcached \
-    && pecl install redis && docker-php-ext-enable redis \
-    && docker-php-source delete \
-    && apt-get remove -y g++ wget \
-    && apt-get autoremove --purge -y && apt-get autoclean -y && apt-get clean -y \
-    && rm -rf /var/lib/apt/lists/* \
-    && rm -rf /tmp/* /var/tmp/*
+USER root
 
-# Add locale pt_BR
-RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y locales
+RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - \
+  && apt-get install -y \ 
+  nodejs \
+  gconf-service \
+  libasound2 \
+  libatk1.0-0 \
+  libc6 \
+  libcairo2 \
+  libcups2 \
+  libdbus-1-3 \
+  libexpat1 \
+  libfontconfig1 \
+  libgcc1 \
+  libgconf-2-4 \
+  libgdk-pixbuf2.0-0 \
+  libglib2.0-0 \
+  libgtk-3-0 \
+  libnspr4 \
+  libpango-1.0-0 \
+  libpangocairo-1.0-0 \
+  libstdc++6 \
+  libx11-6 \
+  libx11-xcb1 \
+  libxcb1 \
+  libxcomposite1 \
+  libxcursor1 \
+  libxdamage1 \
+  libxext6 \
+  libxfixes3 \
+  libxi6 \
+  libxrandr2 \
+  libxrender1 \
+  libxss1 \
+  libxtst6 \
+  libgbm-dev \
+  ca-certificates \
+  fonts-liberation \
+  libappindicator1 \
+  libnss3 \
+  lsb-release \
+  xdg-utils
 
-# Add locale pt_BR
-RUN sed -i 's/# pt_BR*/pt_BR/' /etc/locale.gen
+ADD ./install.sh /var/install/
 
-RUN locale-gen
+RUN ["chmod", "+x", "/var/install/install.sh"]
 
-# Add user for application
-RUN groupadd -g 1000 www
-RUN useradd -u 1000 -ms /bin/bash -g www www
+RUN /var/install/install.sh
 
-# Change current user to www
 USER www
