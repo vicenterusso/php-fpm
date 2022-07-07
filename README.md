@@ -2,7 +2,7 @@
 
 Docker container to install and run [PHP-FPM](https://php-fpm.org/) with pt_BR language, Node and puppeteer installed and enabled.
 
-[![Build Status](https://travis-ci.com/vicenterusso/php-fpm.svg?branch=8.1.4-puppeteer)](https://travis-ci.com/vicenterusso/php-fpm:8.1.4-puppeteer) ![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/vicenterusso/php-fpm:8.1.4-puppeteer)
+[![Build Status](https://app.travis-ci.com/vicenterusso/php-fpm.svg?branch=8.1.4-puppeteer)](https://app.travis-ci.com/vicenterusso/php-fpm)
 
 ## What is PHP-FPM
 
