@@ -1,67 +1,26 @@
-# PHP-FPM 7.4.29 Docker Image
+# PHP-FPM 7.4.30 Docker Image
 
 Docker container to install and run [PHP-FPM](https://www.php.net/manual/en/install.fpm.php) with pt_BR language installed and enabled.
 
-[![Build Status](https://travis-ci.com/vicenterusso/php-fpm.svg?branch=7.4.29)](https://travis-ci.com/vicenterusso/php-fpm) ![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/vicenterusso/php-fpm)
-
-## What is PHP-FPM
-
-PHP-FPM (FastCGI Process Manager) is an alternative FastCGI implementation for PHP.
+[![Build Status](https://travis-ci.com/vicenterusso/php-fpm.svg?branch=7.4.30-alpine)](https://travis-ci.com/vicenterusso/php-fpm) ![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/vicenterusso/php-fpm)
 
 ## Getting image
 
 ```sh
-sudo docker image pull vicenterusso/php-fpm:7.4.29-alpine
-```
-
-## Running your PHP script
-
-Run the PHP-FPM image, mounting a directory from your host.
-
-```sh
-sudo docker container run --rm -v $(pwd):/var/www/html vicenterusso/php-fpm:7.4.29-alpine php index.php
-```
-
-## Running as server
-
-```sh
-sudo docker container run --rm --name phpfpm -v $(pwd):/var/www/html -p 3000:3000 vicenterusso/php-fpm:7.4.29-alpine php -S="0.0.0.0:3000" -t="/var/www/html"
-```
-
-or using [Docker Compose](https://docs.docker.com/compose/) :
-
-```sh
-version: '3'
-services:
-  phpfpm:
-    container_name: phpfpm
-    image: vicenterusso/php-fpm:7.4.29-alpine
-    ports:
-      - 3000:3000
-    volumes:
-      - /path/to/your/app:/var/www/html
-    command: php -S="0.0.0.0:3000" -t="/var/www/html"
-```
-
-### Logging
-
-```sh
-sudo docker container logs phpfpm
+sudo docker image pull vicenterusso/php-fpm:7.4.30-alpine
 ```
 
 ## Installed extensions
 
 ```bash
-sudo docker container run --rm vicenterusso/php-fpm:7.4.29-alpine php -m
+sudo docker container run --rm vicenterusso/php-fpm:7.4.30-alpine php -m
 ```
 
 ### PHP Modules
 
 - bcmath
-- bz2
 - calendar
 - Core
-- cron
 - ctype
 - curl
 - date
@@ -72,6 +31,7 @@ sudo docker container run --rm vicenterusso/php-fpm:7.4.29-alpine php -m
 - ftp
 - gd
 - gettext
+- gmp
 - hash
 - iconv
 - imagick
@@ -79,41 +39,47 @@ sudo docker container run --rm vicenterusso/php-fpm:7.4.29-alpine php -m
 - json
 - libxml
 - mbstring
-- memcached
+- mcrypt
 - mongodb
-- mysqli
 - mysqlnd
+- OAuth
 - openssl
+- pcntl
 - pcre
 - PDO
-- pdo_mysql
+- pdo_dblib
 - pdo_pgsql
 - pdo_sqlite
 - pgsql
 - Phar
 - posix
+- psr
 - readline
 - redis
 - Reflection
 - session
 - SimpleXML
-- soap
 - sockets
 - sodium
 - SPL
 - sqlite3
+- ssh2
 - standard
+- sysvmsg
+- sysvsem
+- sysvshm
+- tidy
 - tokenizer
-- xdebug
+- vips
 - xml
 - xmlreader
 - xmlrpc
 - xmlwriter
 - xsl
-- Zend OPcache
+- yaml
 - zip
 - zlib
 
 ### Zend Modules
 
-- Zend OPcache
+_None_

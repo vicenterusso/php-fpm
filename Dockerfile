@@ -1,14 +1,11 @@
-FROM php:7.4.29-fpm-alpine3.16
+FROM php:7.4.30-fpm-alpine3.16
 
 LABEL Maintainer="Vicente Russo <vicente.russo@gmail.com>" \
-    Description="PHP-FPM v7.4.29 with essential extensions on top of Alpine Linux."
+    Description="PHP-FPM v7.4.30 with essential extensions on top of Alpine Linux 3.16."
 
 # Composer - https://getcomposer.org/download/
-ARG COMPOSER_VERSION="2.3.7"
-ARG COMPOSER_SUM="3f2d46787d51070f922bf991aa08324566f726f186076c2a5e4e8b01a8ea3fd0"
-
-# Swoole - https://github.com/swoole/swoole-src
-ARG SWOOLE_VERSION="4.8.10"
+ARG COMPOSER_VERSION="1.10.26"
+ARG COMPOSER_SUM="cbfe1f85276c57abe464d934503d935aa213494ac286275c8dfabfa91e3dbdc4"
 
 # Install dependencies
 RUN set -eux \
@@ -35,7 +32,6 @@ RUN set -eux \
         libxslt \
         libzip \
         make \
-        rabbitmq-c \
         tidyhtml \
         tzdata \
         vips \
@@ -64,7 +60,6 @@ RUN set -eux \
         libc-dev \
         libjpeg-turbo-dev \
         libmcrypt-dev \
-        #libmemcached-dev \
         libpng-dev \
         libssh2-dev \
         libwebp-dev \
@@ -77,14 +72,11 @@ RUN set -eux \
         pcre-dev \
         pkgconf \
         postgresql-dev \
-        rabbitmq-c-dev \
         tidyhtml-dev \
         vips-dev \
         yaml-dev \
         zlib-dev \
 \
-# Workaround for rabbitmq linking issue
-    && ln -s /usr/lib /usr/local/lib64 \
 # Enable ffi if it exists
     && set -eux \
         && if [ -f /usr/local/etc/php/conf.d/docker-php-ext-ffi.ini ]; then \
@@ -105,11 +97,6 @@ RUN set -eux \
         --with-freetype \
         --enable-gd-jis-conv \
     && docker-php-ext-install -j$(nproc) gd \
-    && true \
-\
-# Install amqp (rabbit mq)
-    && echo "/usr" | pecl install amqp \
-    && docker-php-ext-enable amqp \
     && true \
 \
 # Install gettext
@@ -151,18 +138,9 @@ RUN set -eux \
     && docker-php-ext-install -j$(nproc) xmlrpc \
     && true \
 \
-# Install mysqli
-    && docker-php-ext-install -j$(nproc) mysqli \
-    && true \
-\
 # Install oauth
     && pecl install oauth \
     && docker-php-ext-enable oauth \
-    && true \
-\
-# Install pdo_mysql
-    && docker-php-ext-configure pdo_mysql --with-zlib-dir=/usr \
-    && docker-php-ext-install -j$(nproc) pdo_mysql \
     && true \
 \
 # Install pdo_dblib
@@ -186,10 +164,6 @@ RUN set -eux \
     && docker-php-ext-enable psr \
     && true \
 \
-# Install soap
-    && docker-php-ext-install -j$(nproc) soap \
-    && true \
-\
 # Install ssh2
     && pecl install ssh2-1.2 \
     && docker-php-ext-enable ssh2 \
@@ -202,22 +176,6 @@ RUN set -eux \
         sysvsem \
         sysvshm \
     && docker-php-source extract \
-    && true \
-\
-# Install swoole
-    && mkdir /usr/src/php/ext/swoole \
-    && curl -Lo swoole.tar.gz https://github.com/swoole/swoole-src/archive/v${SWOOLE_VERSION}.tar.gz \
-    && tar xfz swoole.tar.gz --strip-components=1 -C /usr/src/php/ext/swoole \
-    && docker-php-ext-configure swoole \
-            --enable-mysqlnd \
-            --enable-sockets \
-            --enable-openssl \
-            --enable-http2 \
-            --enable-swoole-json \
-            --enable-swoole-curl \
-    && docker-php-ext-install -j$(nproc) swoole \
-    && rm -rf swoole.tar.gz $HOME/.composer/*-old.phar \
-    && docker-php-ext-enable swoole \
     && true \
 \
 # Install tidy
@@ -247,11 +205,6 @@ RUN set -eux \
     && pecl install mongodb \
     && docker-php-ext-enable mongodb \
     && true \
-#\
-# Install memcached
-    #&& pecl install memcached \
-    #&& docker-php-ext-enable memcached \
-    #&& true \
 \
 # Install redis
     && pecl install redis \
@@ -303,4 +256,12 @@ USER www
 ENV LANG=pt_BR.UTF-8
 ENV LC_COLLATE=pt_BR
 
-WORKDIR /var/www
+
+
+
+
+
+# USER root
+
+# RUN apk update
+# RUN apk add git

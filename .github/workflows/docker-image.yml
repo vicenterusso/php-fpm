@@ -2,16 +2,13 @@ name: Docker Image CI
 
 on:
   push:
-    branches: [ 7.4.29-alpine ]
+    branches: [ 7.4.30-alpine ]
   pull_request:
-    branches: [ 7.4.29-alpine ]
+    branches: [ 7.4.30-alpine ]
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v2
     - name: docker login
@@ -21,7 +18,6 @@ jobs:
       run: |
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD 
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag vicenterusso/php-fpm:7.4.29-alpine
-      
+      run: docker build . --file Dockerfile --tag vicenterusso/php-fpm:7.4.30-alpine
     - name: Docker Push
-      run: docker push vicenterusso/php-fpm:7.4.29-alpine
+      run: docker push vicenterusso/php-fpm:7.4.30-alpine

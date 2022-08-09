@@ -6,6 +6,6 @@ before_install:
   - sudo apt-get update
   - sudo apt-get install -y docker.io
 script:
-  - docker build -t vicenterusso/php-fpm:7.4.23-alpine .
+  - docker build -t vicenterusso/php-fpm:7.4.30-alpine .
 after_script:
   - docker images
