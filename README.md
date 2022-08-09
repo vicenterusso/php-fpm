@@ -2,7 +2,7 @@
 
 Docker container to install and run [PHP-FPM](https://www.php.net/manual/en/install.fpm.php) with pt_BR language installed and enabled.
 
-[![Build Status](https://travis-ci.com/vicenterusso/php-fpm.svg?branch=7.4.30-alpine)](https://travis-ci.com/vicenterusso/php-fpm) ![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/vicenterusso/php-fpm)
+![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/vicenterusso/php-fpm/Docker%20Image%20CI/7.4.30-alpine?label=Github%20Build&logo=github&style=flat-square) ![Travis (.com) branch](https://img.shields.io/travis/com/vicenterusso/php-fpm/7.4.30-alpine?label=Travis%20build%20status&style=flat-square)
 
 ## Getting image
 
