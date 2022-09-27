@@ -29,15 +29,11 @@ RUN apt-get update && apt-get upgrade -y \
     zlib1g-dev \
     locales \
     cron \
-    && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install -j$(nproc) gd \
-    && docker-php-ext-configure imap --with-kerberos --with-imap-ssl \
-    && docker-php-ext-install -j$(nproc) imap \
-    && docker-php-ext-configure intl \
-    && docker-php-ext-install -j$(nproc) intl \
-    && docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu/ \
-    && docker-php-ext-install ldap \
-    && docker-php-ext-install -j$(nproc) \
+    # && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install gd \
+    && docker-php-ext-install intl \
+    && docker-php-ext-configure pcntl --enable-pcntl \
+    && docker-php-ext-install pcntl \
     bcmath \
     bz2 \
     calendar \
