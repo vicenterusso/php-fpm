@@ -211,6 +211,11 @@ RUN set -eux \
     && docker-php-ext-enable redis \
     && true \
 \
+# Install xdebug
+    && pecl install xdebug \
+    && docker-php-ext-enable xdebug \
+    && true \
+\
 # Clean up build packages
     && docker-php-source delete \
     && apk del .build-deps \
