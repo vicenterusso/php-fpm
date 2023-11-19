@@ -3,7 +3,7 @@ name: ci
 on:
   push:
     branches:
-      - '8.1.4'
+      - 'neiburz-8.1.4'
 
 jobs:
   docker:
@@ -30,4 +30,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: vicenterusso/php-fpm:8.1.4
+          tags: vicenterusso/php-fpm:neiburz-8.1.4

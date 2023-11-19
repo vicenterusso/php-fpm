@@ -1,6 +1,0 @@
-sudo: required
-services: docker
-script:
-  - docker build -t vicenterusso/php-fpm:8 .
-after_script:
-  - docker images
