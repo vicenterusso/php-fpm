@@ -30,7 +30,6 @@ RUN apt-get update && apt-get upgrade -y \
     zlib1g-dev \
     locales \
     cron \
-    # && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install gd \
     && docker-php-ext-install intl \
     && docker-php-ext-configure pcntl --enable-pcntl \
@@ -40,9 +39,7 @@ RUN apt-get update && apt-get upgrade -y \
     calendar \
     exif \
     gettext \
-    mysqli \
     opcache \
-    pdo_mysql \
     pdo_pgsql \
     pgsql \
     soap \
@@ -50,9 +47,8 @@ RUN apt-get update && apt-get upgrade -y \
     xsl \    
     && docker-php-ext-configure zip --with-zip \
     && docker-php-ext-install zip \
-#    && pecl install xdebug && docker-php-ext-enable xdebug \
     && pecl install mongodb && docker-php-ext-enable mongodb \
-#    && pecl install memcached && docker-php-ext-enable memcached \
+    && pecl install grpc && docker-php-ext-enable grpc \
     && pecl install redis && docker-php-ext-enable redis \
     && docker-php-source delete \
     && apt-get remove -y g++ wget \
