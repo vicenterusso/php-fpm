@@ -1,4 +1,4 @@
-FROM php:8.1.4-fpm-buster
+FROM php:8.2.14-fpm-bullseye
 
 LABEL maintainer="Vicente Russo <vicente.russo@gmail.com>"
 
@@ -50,9 +50,9 @@ RUN apt-get update && apt-get upgrade -y \
     xsl \    
     && docker-php-ext-configure zip --with-zip \
     && docker-php-ext-install zip \
-#    && pecl install xdebug && docker-php-ext-enable xdebug \
+    #    && pecl install xdebug && docker-php-ext-enable xdebug \
     && pecl install mongodb && docker-php-ext-enable mongodb \
-#    && pecl install memcached && docker-php-ext-enable memcached \
+    #    && pecl install memcached && docker-php-ext-enable memcached \
     && pecl install redis && docker-php-ext-enable redis \
     && docker-php-source delete \
     && apt-get remove -y g++ wget \
