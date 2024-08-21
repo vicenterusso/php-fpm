@@ -32,6 +32,8 @@ RUN set -eux \
         libxslt \
         libzip \
         make \
+        mysql-client \
+        mariadb-dev \
         tidyhtml \
         tzdata \
         vips \
@@ -206,13 +208,17 @@ RUN set -eux \
     && docker-php-ext-enable mongodb \
     && true \
 \
+# Install Mysql
+    && docker-php-ext-install -j$(nproc) pdo_mysql mysqli \
+    && true \
+\
 # Install redis
     && pecl install redis \
     && docker-php-ext-enable redis \
     && true \
 \
 # Install xdebug
-    && pecl install xdebug \
+    && pecl install xdebug-3.1.5 \
     && docker-php-ext-enable xdebug \
     && true \
 \
