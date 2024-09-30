@@ -1,4 +1,4 @@
-# PHP-FPM 8.3.2 Docker Image
+# PHP-FPM 8.3.12 Docker Image
 
 Docker container to install and run [PHP-FPM](https://php-fpm.org/) with pt_BR language installed and enabled.
 
@@ -75,6 +75,7 @@ sudo docker container run --rm vicenterusso/php-fpm:8.3.2 php -m
 - hash
 - iconv
 - imap
+- imagemagick
 - intl
 - json
 - ldap

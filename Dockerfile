@@ -1,9 +1,11 @@
-FROM php:8.3.2-fpm-bookworm
+FROM php:8.3.12-fpm-bookworm
 
 LABEL maintainer="Vicente Russo <vicente.russo@gmail.com>"
 
+# Install dependencies and PHP extensions
 RUN apt-get update && apt-get upgrade -y \
     && apt-get install -y \
+    cron \
     g++ \
     git \
     libbz2-dev \
@@ -15,7 +17,7 @@ RUN apt-get update && apt-get upgrade -y \
     libjpeg62-turbo-dev \
     libkrb5-dev \
     libldap2-dev \
-    libmagickwand-dev \
+    #libmagickwand-dev \
     libmcrypt-dev \
     libmemcached-dev \
     libpq-dev \
@@ -23,6 +25,9 @@ RUN apt-get update && apt-get upgrade -y \
     libssl-dev \
     libreadline-dev \
     libxslt1-dev \
+    libpng-dev \
+    libwebp-dev \
+    libxpm-dev \
     libzip-dev \
     memcached \
     wget \
@@ -30,8 +35,10 @@ RUN apt-get update && apt-get upgrade -y \
     zlib1g-dev \
     locales \
     cron \
-    # && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install gd \
+    && docker-php-ext-install pdo_mysql  \
+    && docker-php-ext-install mysqli  \
+    && docker-php-ext-configure gd --with-webp --with-jpeg --with-xpm --with-freetype \
+    && docker-php-ext-install -j$(nproc) gd \
     && docker-php-ext-install intl \
     && docker-php-ext-configure pcntl --enable-pcntl \
     && docker-php-ext-install pcntl \
@@ -54,6 +61,7 @@ RUN apt-get update && apt-get upgrade -y \
     && pecl install mongodb && docker-php-ext-enable mongodb \
     #    && pecl install memcached && docker-php-ext-enable memcached \
     && pecl install redis && docker-php-ext-enable redis \
+    #&& pecl install imagick && docker-php-ext-enable imagick \
     && docker-php-source delete \
     && apt-get remove -y g++ wget \
     && apt-get autoremove --purge -y && apt-get autoclean -y && apt-get clean -y \
@@ -61,16 +69,10 @@ RUN apt-get update && apt-get upgrade -y \
     && rm -rf /tmp/* /var/tmp/*
 
 # Add locale pt_BR
-RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y locales
-
-# Add locale pt_BR
-RUN sed -i 's/# pt_BR*/pt_BR/' /etc/locale.gen
-
-RUN locale-gen
+RUN sed -i 's/# pt_BR*/pt_BR/' /etc/locale.gen && locale-gen
 
 # Add user for application
-RUN groupadd -g 1000 www
-RUN useradd -u 1000 -ms /bin/bash -g www www
+RUN groupadd -g 1000 www && useradd -u 1000 -ms /bin/bash -g www www
 
 # Change current user to www
 USER www
