@@ -3,7 +3,7 @@ name: ci
 on:
   push:
     branches:
-      - '8.3.2'
+      - '8.3.12'
 
 jobs:
   docker:
@@ -30,4 +30,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: vicenterusso/php-fpm:8.3.2
+          tags: vicenterusso/php-fpm:8.3.12
