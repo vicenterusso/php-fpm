@@ -1,6 +1,0 @@
-sudo: required
-services: docker
-script:
-  - docker build -t nanoninja/php-fpm:5.6.40 .
-after_script:
-  - docker images
