@@ -1,6 +1,6 @@
-# PHP-FPM 8.3.12 Docker Image
+# PHP-FPM 8.3.15 Docker Image
 
-Docker container to install and run [PHP-FPM](https://php-fpm.org/) with pt_BR language installed and enabled.
+Docker container to install and run [PHP-FPM](https://php-fpm.org/) with SQL Server and pt_BR language installed and enabled.
 
 [![Build Status](https://travis-ci.com/vicenterusso/php-fpm.svg?branch=8.3.2)](https://travis-ci.com/vicenterusso/php-fpm) ![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/vicenterusso/php-fpm)
 
@@ -35,7 +35,7 @@ version: '3'
 services:
   phpfpm:
     container_name: phpfpm
-    image: vicenterusso/php-fpm:8.3.2
+    image: vicenterusso/php-fpm:8.3.15-sql-server
     ports:
       - 3000:3000
     volumes:
@@ -52,7 +52,7 @@ sudo docker container logs phpfpm
 ## Installed extensions
 
 ```bash
-sudo docker container run --rm vicenterusso/php-fpm:8.3.2 php -m
+sudo docker container run --rm vicenterusso/php-fpm:8.3.15-sql-server php -m
 ```
 
 ### PHP Modules
@@ -91,6 +91,8 @@ sudo docker container run --rm vicenterusso/php-fpm:8.3.2 php -m
 - pdo_mysql
 - pdo_pgsql
 - pdo_sqlite
+- sqlsrv
+- pdo_sqlsrv
 - pgsql
 - Phar
 - posix

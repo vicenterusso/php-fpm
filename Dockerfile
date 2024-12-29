@@ -1,6 +1,28 @@
-FROM php:8.3.12-fpm-bookworm
+FROM php:8.3.15-fpm-bookworm
 
 LABEL maintainer="Vicente Russo <vicente.russo@gmail.com>"
+
+# Install necessary tools
+RUN apt-get update && apt-get install -y curl gnupg2
+
+# Import Microsoft GPG key properly
+RUN curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > /usr/share/keyrings/microsoft-archive-keyring.gpg
+
+# Add Microsoft repository
+RUN curl https://packages.microsoft.com/config/debian/12/prod.list | tee /etc/apt/sources.list.d/mssql-release.list \
+    && echo "deb [arch=amd64,arm64,armhf signed-by=/usr/share/keyrings/microsoft-archive-keyring.gpg] https://packages.microsoft.com/debian/12/prod bookworm main" > /etc/apt/sources.list.d/mssql-release.list \
+    && apt-get update
+
+# Install the ODBC libraries and MS command line tools
+RUN ACCEPT_EULA=Y apt-get install -y unixodbc-dev msodbcsql18 mssql-tools18
+
+# Install sqlsrv and pdo_sqlsrv PHP extensions
+RUN pecl install sqlsrv \
+    && pecl install pdo_sqlsrv \
+    && echo "extension=sqlsrv.so" > /usr/local/etc/php/conf.d/sqlsrv.ini \
+    && echo "extension=pdo_sqlsrv.so" > /usr/local/etc/php/conf.d/pdo_sqlsrv.ini \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Install dependencies and PHP extensions
 RUN apt-get update && apt-get upgrade -y \
@@ -67,6 +89,8 @@ RUN apt-get update && apt-get upgrade -y \
     && apt-get autoremove --purge -y && apt-get autoclean -y && apt-get clean -y \
     && rm -rf /var/lib/apt/lists/* \
     && rm -rf /tmp/* /var/tmp/*
+
+
 
 # Add locale pt_BR
 RUN sed -i 's/# pt_BR*/pt_BR/' /etc/locale.gen && locale-gen
