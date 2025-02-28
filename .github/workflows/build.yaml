@@ -3,7 +3,7 @@ name: ci
 on:
   push:
     branches:
-      - '8.3.15-sql-server'
+      - '8.4.4-sql-server'
 
 jobs:
   docker:
@@ -31,4 +31,4 @@ jobs:
           context: .
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: vicenterusso/php-fpm:8.3.15-sql-server
+          tags: vicenterusso/php-fpm:8.4.4-sql-server
