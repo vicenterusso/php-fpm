@@ -83,6 +83,8 @@ RUN set -eux \
             echo "ffi.enable = 1" >> /usr/local/etc/php/conf.d/docker-php-ext-ffi.ini; \
         fi \
 \
+    && docker-php-ext-install  -j$(nproc) pdo \
+    && docker-php-ext-install  -j$(nproc) pdo_mysql \
 ################################
 # Install PHP extensions
 ################################
@@ -199,11 +201,6 @@ RUN set -eux \
 # Install zip
     && docker-php-ext-configure zip --with-zip \
     && docker-php-ext-install -j$(nproc) zip \
-    && true \
-\
-# Install mongodb
-    && pecl install mongodb \
-    && docker-php-ext-enable mongodb \
     && true \
 \
 # Install redis
