@@ -85,6 +85,7 @@ RUN set -eux \
 \
     && docker-php-ext-install  -j$(nproc) pdo \
     && docker-php-ext-install  -j$(nproc) pdo_mysql \
+    && docker-php-ext-install  -j$(nproc) mysqli \
 ################################
 # Install PHP extensions
 ################################
