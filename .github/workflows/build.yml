@@ -30,4 +30,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: vicenterusso/php-fpm:7.4.30-alpine-mysql-xdebug
+          tags: vicenterusso/php-fpm:7.4.30-alpine-mysql-xdebug-php2shell-fix
