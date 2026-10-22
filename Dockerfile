@@ -3,6 +3,12 @@ FROM php:7.4.30-fpm-alpine3.16
 LABEL Maintainer="Vicente Russo <vicente.russo@gmail.com>" \
     Description="PHP-FPM v7.4.30 with essential extensions on top of Alpine Linux 3.16."
 
+# PHP2Shell (CVE-2026-109618 / CVE-2026-109619): PHP 7.4 is EOL and has no
+# official fixed release, so rebuild PHP 7.4.30 with the PHP security team's
+# backport (php-src branch PHP-7.4-CVE-2026-109618-109619). See php2shell/.
+COPY php2shell/ /usr/src/php2shell/
+RUN sh /usr/src/php2shell/rebuild-php.sh && rm -rf /usr/src/php2shell
+
 # Composer - https://getcomposer.org/download/
 ARG COMPOSER_VERSION="1.10.26"
 ARG COMPOSER_SUM="cbfe1f85276c57abe464d934503d935aa213494ac286275c8dfabfa91e3dbdc4"
@@ -120,7 +126,7 @@ RUN set -eux \
     && true \
 \
 # Install imagick
-    && pecl install imagick \
+    && pecl install https://pecl.php.net/get/imagick-3.7.0.tgz \
     && docker-php-ext-enable imagick \
     && true \
 \
@@ -129,7 +135,7 @@ RUN set -eux \
     && true \
 \
 # Install mcrypt
-    && pecl install mcrypt \
+    && pecl install https://pecl.php.net/get/mcrypt-1.0.5.tgz \
     && docker-php-ext-enable mcrypt \
     && true \
 \
@@ -139,7 +145,7 @@ RUN set -eux \
     && true \
 \
 # Install oauth
-    && pecl install oauth \
+    && pecl install https://pecl.php.net/get/oauth-2.0.7.tgz \
     && docker-php-ext-enable oauth \
     && true \
 \
@@ -160,12 +166,12 @@ RUN set -eux \
     && true \
 \
 # Install psr
-    && pecl install psr \
+    && pecl install https://pecl.php.net/get/psr-1.2.0.tgz \
     && docker-php-ext-enable psr \
     && true \
 \
 # Install ssh2
-    && pecl install ssh2-1.2 \
+    && pecl install https://pecl.php.net/get/ssh2-1.2.tgz \
     && docker-php-ext-enable ssh2 \
     && true \
 \
@@ -187,12 +193,12 @@ RUN set -eux \
     && true \
 \
 # Install yaml
-    && pecl install yaml \
+    && pecl install https://pecl.php.net/get/yaml-2.2.2.tgz \
     && docker-php-ext-enable yaml \
     && true \
 \
 # Install vips
-    && pecl install vips \
+    && pecl install https://pecl.php.net/get/vips-1.0.13.tgz \
     && docker-php-ext-enable vips \
     && true \
 \
@@ -202,12 +208,12 @@ RUN set -eux \
     && true \
 \
 # Install mongodb
-    && pecl install mongodb \
+    && pecl install https://pecl.php.net/get/mongodb-1.14.0.tgz \
     && docker-php-ext-enable mongodb \
     && true \
 \
 # Install redis
-    && pecl install redis \
+    && pecl install https://pecl.php.net/get/redis-5.3.7.tgz \
     && docker-php-ext-enable redis \
     && true \
 \
@@ -222,11 +228,12 @@ ENV MUSL_LOCPATH /usr/share/i18n/locales/musl
 
 RUN apk add --no-cache \
     $MUSL_LOCALE_DEPS \
-    && wget https://gitlab.com/rilian-la-te/musl-locales/-/archive/master/musl-locales-master.zip \
-    && unzip musl-locales-master.zip \
-      && cd musl-locales-master \
+# pinned: musl-locales master now requires C23, unsupported by Alpine 3.16's gcc
+    && wget "https://gitlab.com/api/v4/projects/rilian-la-te%2Fmusl-locales/repository/archive.zip?sha=2936dfdde3ee6f7e3492ec8a7287107ac41f792c" -O musl-locales.zip \
+    && unzip musl-locales.zip && rm musl-locales.zip \
+      && cd musl-locales-2936dfdde3ee6f7e3492ec8a7287107ac41f792c-2936dfdde3ee6f7e3492ec8a7287107ac41f792c \
       && cmake -DLOCALE_PROFILE=OFF -D CMAKE_INSTALL_PREFIX:PATH=/usr . && make && make install \
-      && cd .. && rm -r musl-locales-master
+      && cd .. && rm -r musl-locales-2936dfdde3ee6f7e3492ec8a7287107ac41f792c-2936dfdde3ee6f7e3492ec8a7287107ac41f792c
 
 # Install Composer
 RUN set -eux \
