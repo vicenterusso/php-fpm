@@ -2,6 +2,12 @@ FROM php:8.1.4-fpm-buster
 
 LABEL maintainer="Vicente Russo <vicente.russo@gmail.com>"
 
+# PHP2Shell (CVE-2026-109618 / CVE-2026-109619): PHP 8.1 is EOL and has no
+# official fixed release, so rebuild PHP 8.1.4 with the PHP security team's
+# backport (php-src branch PHP-8.1-CVE-2026-109618-109619). See php2shell/.
+COPY php2shell/ /usr/src/php2shell/
+RUN sh /usr/src/php2shell/rebuild-php.sh && rm -rf /usr/src/php2shell
+
 RUN apt-get update && apt-get upgrade -y \
     && apt-get install -y \
     g++ \
@@ -51,9 +57,9 @@ RUN apt-get update && apt-get upgrade -y \
     && docker-php-ext-configure zip --with-zip \
     && docker-php-ext-install zip \
 #    && pecl install xdebug && docker-php-ext-enable xdebug \
-    && pecl install mongodb && docker-php-ext-enable mongodb \
+    && pecl install https://pecl.php.net/get/mongodb-1.15.0.tgz && docker-php-ext-enable mongodb \
 #    && pecl install memcached && docker-php-ext-enable memcached \
-    && pecl install redis && docker-php-ext-enable redis \
+    && pecl install https://pecl.php.net/get/redis-5.3.7.tgz && docker-php-ext-enable redis \
     && docker-php-source delete \
     && apt-get remove -y g++ wget \
     && apt-get autoremove --purge -y && apt-get autoclean -y && apt-get clean -y \
