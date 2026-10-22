@@ -1,5 +1,7 @@
 # PHP-FPM 8 Docker Image
 
+> **Security (PHP2Shell, CVE-2026-109618 / CVE-2026-109619):** use the tags `vicenterusso/php-fpm:8.0.8-php2shell-fix` / `vicenterusso/php-fpm:8-php2shell-fix`. The original tags are left untouched and remain vulnerable. PHP 8.0 is EOL and has no official fixed release, so the image rebuilds PHP 8.0.8 from source with the official backport published by the PHP security team ([PHP-8.0-CVE-2026-109618-109619](https://github.com/php/php-src/tree/PHP-8.0-CVE-2026-109618-109619)), adapted to 8.0.8, see `php2shell/`. Debian buster apt sources are switched to archive.debian.org (buster is EOL).
+
 Docker container to install and run [PHP-FPM](https://php-fpm.org/) with pt_BR language installed and enabled.
 
 [![Build Status](https://travis-ci.com/vicenterusso/php-fpm.svg?branch=8)](https://travis-ci.com/vicenterusso/php-fpm) ![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/vicenterusso/php-fpm)
