@@ -1,8 +1,16 @@
-FROM vicenterusso/php-fpm:8.1.4
+# PHP2Shell (CVE-2026-109618 / CVE-2026-109619): based on the fixed 8.1.4 image
+FROM vicenterusso/php-fpm:8.1.4-php2shell-fix
 
 LABEL maintainer="Vicente Russo <vicente.russo@gmail.com>"
 
 USER root
+
+# imap and ldap were dropped from the 8.1.4 base image after this image was
+# first published; keep them so the image has the same PHP modules
+RUN docker-php-ext-configure imap --with-kerberos --with-imap-ssl \
+    && docker-php-ext-install -j$(nproc) imap \
+    && docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu/ \
+    && docker-php-ext-install ldap
 
 RUN apt-get update && apt-get install -yq libgconf-2-4
 
