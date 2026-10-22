@@ -1,4 +1,4 @@
-FROM php:8.4.12-fpm-bookworm
+FROM php:8.4.27-fpm-bookworm
 
 LABEL maintainer="Vicente Russo <vicente.russo@gmail.com>"
 

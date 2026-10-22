@@ -1,5 +1,7 @@
 # PHP-FPM 8.4.12 Docker Image
 
+> **Security (PHP2Shell, CVE-2026-109618 / CVE-2026-109619):** use the tag `vicenterusso/php-fpm:8.4.12-php2shell-fix`. It is built on the official `php:8.4.27-fpm-bookworm` image (PHP 8.4.27, which contains the fix). The original `8.4.12` tag is left untouched and remains vulnerable.
+
 Docker container to install and run [PHP-FPM](https://php-fpm.org/) with pt_BR language installed and enabled.
 
 [![Build Status](https://travis-ci.com/vicenterusso/php-fpm.svg?branch=8.4.12)](https://travis-ci.com/vicenterusso/php-fpm) ![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/vicenterusso/php-fpm)
