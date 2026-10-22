@@ -30,4 +30,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: vicenterusso/php-fpm:8.3.12
+          tags: vicenterusso/php-fpm:8.3.12-php2shell-fix
