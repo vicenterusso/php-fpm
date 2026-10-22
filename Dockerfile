@@ -1,4 +1,4 @@
-FROM php:8.2.14-fpm-bullseye
+FROM php:8.2.35-fpm-bookworm
 
 LABEL maintainer="Vicente Russo <vicente.russo@gmail.com>"
 
@@ -33,6 +33,7 @@ RUN apt-get update && apt-get upgrade -y \
     # && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install gd \
     && docker-php-ext-install intl \
+    && docker-php-ext-install ftp \
     && docker-php-ext-configure pcntl --enable-pcntl \
     && docker-php-ext-install pcntl \
     bcmath \
